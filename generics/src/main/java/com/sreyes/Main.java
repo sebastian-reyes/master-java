@@ -1,6 +1,7 @@
 package com.sreyes;
 
 import com.sreyes.model.Cliente;
+import com.sreyes.model.ClientePremium;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +11,6 @@ public class Main {
     public static void main(String[] args) {
 
         /*
-
         Forma errónea de hacer el código
 
         List clientes = new ArrayList();
@@ -18,7 +18,6 @@ public class Main {
 
         Cliente sebastian = (Cliente) clientes.get(0);
         String sebastian2 = (String) clientes.iterator().next();
-
         */
 
         List<Cliente> clientes = new ArrayList<>();
@@ -41,9 +40,33 @@ public class Main {
 
         List<String> nombres = fromArrayToList(new String[]{"Andres", "Pepe", "Renzo", "John"}, enterosArreglo);
         nombres.forEach(System.out::println);
+
+        List<ClientePremium> clientesPremium = fromArrayToList(
+                new ClientePremium[]{
+                        new ClientePremium("John", "Doe"),
+                        new ClientePremium("Franz", "Smith")
+                });
+
+        imprimirClientes(clientes);
+        imprimirClientes(clientesLista);
+        imprimirClientes(clientesPremium);
     }
 
     public static <T> List<T> fromArrayToList(T[] clientes) {
+        return Arrays.asList(clientes);
+    }
+
+    public static <T extends Number> List<T> fromArrayToList(T[] clientes) {
+        return Arrays.asList(clientes);
+    }
+
+    /*
+    public static List<Cliente> fromArrayToList(Cliente[] clientes) {
+        return Arrays.asList(clientes);
+    }
+    */
+
+    public static <T extends Cliente & Comparable<T>> List<T> fromArrayToList(T[] clientes) {
         return Arrays.asList(clientes);
     }
 
@@ -52,5 +75,9 @@ public class Main {
             System.out.println(elemento);
         }
         return Arrays.asList(clientes);
+    }
+
+    public static void imprimirClientes(List<? extends Cliente> clientes) {
+        clientes.forEach(System.out::println);
     }
 }
